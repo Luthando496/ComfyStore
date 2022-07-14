@@ -3,7 +3,7 @@ import {createSlice,configureStore} from '@reduxjs/toolkit'
 
 const productsSlice = createSlice({
     name: 'user',
-    initialState: {isOpen:true,loading:false,error:null,products:null,singleProduct:null,singleProductLoad:false,singleError:null},
+    initialState: {isOpen:false,loading:false,error:null,products:null,singleProduct:null,singleProductLoad:false,singleError:null},
     reducers: {
         SIDEBAROPEN(state,action){
             state.isOpen = true
