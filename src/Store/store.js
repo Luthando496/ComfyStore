@@ -1,9 +1,10 @@
 import {createSlice,configureStore} from '@reduxjs/toolkit'
+import { productsReducer } from './productsStore'
 
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {user:null,loading:false,error},
+    initialState: {user:null,loading:false,error:null},
     reducers: {
         Register(state, action) {
 
@@ -19,7 +20,10 @@ export const userActions = userSlice.actions
 
 
 const store = configureStore({
-    reducer:userSlice.reducer
+    reducer:{
+        user:userSlice.reducer,
+        prod:productsReducer
+    }
 })
 
 

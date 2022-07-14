@@ -2,12 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 const ErrorPage = () => {
-  return <h4>error page</h4>
+  return (
+    <Wrapper className='page-100'>
+      <h1>404</h1>
+      <h3>Sorry, The page you tried cannot be found on our servers</h3>
+      <Link to='/' className='btn'>Back bHome</Link>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.main`
   background: var(--clr-primary-10);
-  display: flex;
+  display: column;
   justify-content: center;
   align-items: center;
   text-align: center;
