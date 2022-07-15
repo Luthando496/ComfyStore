@@ -1,11 +1,26 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styled from 'styled-components'
 import { formatPrice } from '../utils/helpers'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const Product = () => {
-  return <h4>product</h4>
+const Product = ({image,id,name,price}) => {
+
+
+  return(
+    <Wrapper>
+      <div className="container">
+        <img src={image} alt="name" />
+        <Link to={`product/${id}`} className='link' >
+          <FaSearch  />
+        </Link>
+      </div>
+      <footer>
+        <h5>{name}</h5>
+        <h5>{formatPrice(price)}</h5>
+      </footer>
+    </Wrapper>
+    )
 }
 
 const Wrapper = styled.article`

@@ -1,12 +1,43 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
+import { useSelector,useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Error from './Error'
 import Loading from './Loading'
 import Product from './Product'
+import {fetchProducts} from '../Store/Actions/ProductsActions'
+
 
 const FeaturedProducts = () => {
-  return <h4>featured products</h4>
+  const {featured,error,loading} = useSelector(state => state.prod)
+
+  const dispatch =useDispatch()
+  
+  useEffect(() => {
+    dispatch(fetchProducts())
+  },[dispatch])
+
+  if(loading){
+    return <Loading/>
+  }
+  if(error){
+    return <Error error={error}/>
+  }
+  return(
+    <Wrapper className='section'>
+    <div className="title">
+      <h2>Featured Products</h2>
+      <div className="underline"></div>
+    </div>
+
+    <div className="section-center featured">
+    {featured && featured.map(pro=>(
+      <Product key={pro.id} {...pro} />
+    ))}
+
+    </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`

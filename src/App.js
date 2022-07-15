@@ -19,7 +19,7 @@ const App=()=> {
             <Route path='/' element={<HomePage />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/about' element={<AboutPage />} />
-            <Route path='/products/:id' element={<SingleProductPage />} />
+            <Route path='/product/:id' element={<SingleProductPage />} />
             <Route path='/products' element={<ProductsPage />} />
             <Route path='/checkout' element={<CheckoutPage />} />
             <Route path='*' element={<ErrorPage />} />

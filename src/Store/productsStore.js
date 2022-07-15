@@ -3,7 +3,7 @@ import {createSlice,configureStore} from '@reduxjs/toolkit'
 
 const productsSlice = createSlice({
     name: 'user',
-    initialState: {isOpen:false,loading:false,error:null,products:null,singleProduct:null,singleProductLoad:false,singleError:null},
+    initialState: {isOpen:false,loading:false,error:null,products:null,singleProduct:null,singleProductLoad:false,singleError:null,featured:null},
     reducers: {
         SIDEBAROPEN(state,action){
             state.isOpen = true
@@ -18,6 +18,7 @@ const productsSlice = createSlice({
         GET_PRODUCTS_SUCCESS(state,action){
             state.products = action.payload
             state.loading = false
+            state.featured = action.payload.filter(pro => pro.featured)
             
         },
         GET_PRODUCTS_ERROR(state,action){
@@ -30,7 +31,7 @@ const productsSlice = createSlice({
             
         },
         GET_SINGLE_PRODUCT_SUCCESS(state,action){
-            state.singleProductLoad = action.payload
+            state.singleProduct = action.payload
             state.singleProductLoad = false
             
         },
