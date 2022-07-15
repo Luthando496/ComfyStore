@@ -1,8 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BsFillGridFill, BsList } from 'react-icons/bs'
 import styled from 'styled-components'
+import {useSelector,useDispatch} from 'react-redux'
+import { UpdateSort} from '../Store/Actions/ProductsActions'
+import { productsActions } from '../Store/productsStore'
+
+
+
 const Sort = () => {
-  return <h4>sort </h4>
+  const sort = useSelector(state => state.prod.sort)
+  const filteredProducts = useSelector(state => state.prod.filteredProducts)
+  const dispatch = useDispatch()
+
+  const updateSort =(e)=>{
+
+    const name = e.target.name
+    const value = e.target.value
+
+    dispatch(UpdateSort(value))
+  }
+
+  useEffect(() => {
+    dispatch(productsActions.sortProducts())
+
+  },[sort])
+
+  return(
+    <Wrapper>
+      <form >
+        <label htmlFor='sort'>Sort By</label>
+        <select name="sort" id="sort" className='sort-input' value={sort} onChange={updateSort}>
+          <option value="lowest">lowest price</option>
+          <option value="highest">highest price</option>
+          <option value="name-a">name a-z</option>
+          <option value="name-z">name z-a</option>
+        </select>
+      </form>
+
+      <h4>{filteredProducts && filteredProducts.length} items found</h4>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`

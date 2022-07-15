@@ -50,3 +50,14 @@ export const fetchSingleProduct = (id) => {
 
     }
 }
+
+
+export const UpdateSort =(value)=> {
+    return  dispatch=>{
+
+        dispatch(actions.sortUpdate(value))
+
+        
+        
+}
+}

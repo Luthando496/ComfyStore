@@ -13,7 +13,19 @@ const ProductsPage = () => {
   },[dispatch])
 
   return(
-    <h4>products page</h4>
+    <main>
+      <PageHero title="Products" />
+
+      <Wrapper className='page'>
+        <div className="section-center products">
+          <Filters />
+          <div>
+            <Sort />
+            <ProductList />
+          </div>
+        </div>
+      </Wrapper>
+    </main>
 
   ) 
 }
