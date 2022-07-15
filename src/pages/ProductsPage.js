@@ -1,10 +1,24 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styled from 'styled-components'
 import { Filters, ProductList, Sort, PageHero } from '../components'
+import { fetchProducts } from '../Store/Actions/ProductsActions'
+import {useDispatch} from 'react-redux'
 
 const ProductsPage = () => {
-  return <h4>products page</h4>
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    
+    dispatch(fetchProducts())
+  },[dispatch])
+
+  return(
+    <h4>products page</h4>
+
+  ) 
 }
+
+
 
 const Wrapper = styled.div`
   .products {
