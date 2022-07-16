@@ -1,16 +1,22 @@
 import React,{useEffect} from 'react'
 import styled from 'styled-components'
-import { Filters, ProductList, Sort, PageHero } from '../components'
+import { Filters, ProductList, Sort, PageHero, Loading } from '../components'
 import { fetchProducts } from '../Store/Actions/ProductsActions'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 
 const ProductsPage = () => {
   const dispatch = useDispatch()
+  const loading = useSelector(state => state.prod.loading)
 
   useEffect(()=>{
     
     dispatch(fetchProducts())
   },[dispatch])
+
+  if(Loading === true){
+   return <Loading />
+
+  }
 
   return(
     <main>

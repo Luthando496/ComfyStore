@@ -1,53 +1,85 @@
-// import {createSlice,configureStore} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
 
-// const cartSlice = createSlice({
-//     name: 'cart',
-//     initialState: {isOpen:false,loading:false,error:null,products:null,singleProduct:null,singleProductLoad:false,singleError:null,featured:null},
-//     reducers: {
-//         SIDEBAROPEN(state,action){
-//             state.isOpen = true
-//         },
-//         SIDEBAR_CLOSE(state,action){
-//             state.isOpen = false
+const getCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
 
-//         },
-//         GET_PRODUCTS_BEGIN(state,action){
-//             state.loading  = true
-//         },
-//         GET_PRODUCTS_SUCCESS(state,action){
-//             state.products = action.payload
-//             state.loading = false
-//             state.featured = action.payload.filter(pro => pro.featured)
+
+const cartSlice = createSlice({
+    name: 'cart',
+    initialState: {cart:getCart,total_items:getCart.length > 1 ? getCart.length : 0,total_amount:0,shippingFee:250},
+    reducers: {
+        AddToCart(state,action){
+            const product =action.payload.product
+            const exist = state.cart.find(pro => pro.id === product.id)
+
+            if(exist){
+                if(exist.amount + action.payload.amount > exist.max){
+                    exist.amount = exist.max
+                    
+                }else{
+                    exist.amount =exist.amount + action.payload 
+
+                }
+                
+            }else{
+                state.cart.push({
+                    name:product.name,
+                    id:product.id,
+                    price:product.price,
+                    image:product.images[0].url,
+                    amount:action.payload.amount,
+                    max:product.stock
+                })
+
+
+            }
+            state.total_items = state.cart.length
+
+            localStorage.setItem('cart',JSON.stringify(state.cart))
+
+
             
-//         },
-//         GET_PRODUCTS_ERROR(state,action){
-//             state.error =action.payload
-//             state.loading =false
+        },
+        SIDEBAR_CLOSE(state,action){
+            state.isOpen = false
+
+        },
+        GET_PRODUCTS_BEGIN(state,action){
+            state.loading  = true
+        },
+        GET_PRODUCTS_SUCCESS(state,action){
+            state.products = action.payload
+            state.loading = false
+            state.featured = action.payload.filter(pro => pro.featured)
             
-//         },
-//         GET_SINGLE_PRODUCT_BEGIN(state,action){
-//             state.singleProductLoad = true
+        },
+        GET_PRODUCTS_ERROR(state,action){
+            state.error =action.payload
+            state.loading =false
             
-//         },
-//         GET_SINGLE_PRODUCT_SUCCESS(state,action){
-//             state.singleProduct = action.payload
-//             state.singleProductLoad = false
+        },
+        GET_SINGLE_PRODUCT_BEGIN(state,action){
+            state.singleProductLoad = true
             
-//         },
-//         GET_SINGLE_PRODUCT_ERROR(state,action){
-//             state.singleError = action.payload
+        },
+        GET_SINGLE_PRODUCT_SUCCESS(state,action){
+            state.singleProduct = action.payload
+            state.singleProductLoad = false
             
-//             state.singleProductLoad = false
-//         },
-//     }
-// })
+        },
+        GET_SINGLE_PRODUCT_ERROR(state,action){
+            state.singleError = action.payload
+            
+            state.singleProductLoad = false
+        },
+    }
+})
 
 
 
 
 
-// export const productsActions = productsSlice.actions
-// export const productsReducer = productsSlice.reducer
+export const cartActions = cartSlice.actions
+export const cartReducer = cartSlice.reducer
 
 

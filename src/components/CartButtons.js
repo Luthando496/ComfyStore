@@ -2,14 +2,18 @@ import React from 'react'
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import {useSelector} from 'react-redux'
 
 
 const CartButtons = () => {
+
+  const total_items = useSelector(state => state.cart.total_items)
+  
   return <Wrapper className='cart-btn-wrapper'>
         <Link to='/cart' className='cart-btn'>
           Cart
           <span className='cart-container'><FaShoppingCart/>
-          <span className='cart-value'>5</span>
+          <span className='cart-value'>{total_items}</span>
           </span>
         </Link>
         <button type='button' className='auth-btn'>Login
