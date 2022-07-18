@@ -36,16 +36,19 @@ const cartSlice = createSlice({
             state.total_items = state.cart.length
 
             localStorage.setItem('cart',JSON.stringify(state.cart))
-
-
+            
+            
             
         },
-        SIDEBAR_CLOSE(state,action){
-            state.isOpen = false
-
+        RemoveItem(state,action){
+            const id = action.payload
+            state.cart = state.cart.filter(pro=> pro.id !== id)
+            
+            localStorage.setItem('cart',JSON.stringify(state.cart))
         },
-        GET_PRODUCTS_BEGIN(state,action){
-            state.loading  = true
+        clearCart(state,action){
+            state.cart = []
+            localStorage.removeItem('cart')
         },
         GET_PRODUCTS_SUCCESS(state,action){
             state.products = action.payload

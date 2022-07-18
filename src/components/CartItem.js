@@ -3,8 +3,51 @@ import styled from 'styled-components'
 import { formatPrice } from '../utils/helpers'
 import AmountButtons from './AmountButtons'
 import { FaTrash } from 'react-icons/fa'
-const CartItem = () => {
-  return <h4>cart item</h4>
+import {useSelector,useDispatch} from 'react-redux'
+import { cartActions } from '../Store/cartStore'
+
+
+
+
+const CartItem = ({id,image,name,price,amount}) => {
+
+  const {cart} = useSelector(state => state.cart)
+  const dispatch = useDispatch()
+  const increase =()=>{
+
+  }
+
+  const decrease =()=>{
+    
+  }
+  return(
+    <Wrapper>
+      <div className="title">
+        <img src={image} alt={name} />
+        <div>
+          <h5 className="name">
+            {name}
+          </h5>
+          <h5 className="price-small">
+            {formatPrice(price)}
+          </h5>
+        </div>
+      </div>
+
+      <h5 className="price">
+        {formatPrice(price)}
+      </h5>
+
+      <AmountButtons increase={increase} decrease={decrease} amount={amount} />
+
+      <h5 className="subtotal">
+        {formatPrice(price * amount)}
+      </h5>
+
+      <button type='button' className='remove-btn' onClick={()=> dispatch(cartActions.RemoveItem(id))}><FaTrash /> </button>
+    </Wrapper>
+
+    )
 }
 
 const Wrapper = styled.article`
